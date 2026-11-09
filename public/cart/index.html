@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopping Cart - CStore</title>
+  <script>document.documentElement.classList.remove('no-js');</script>
+  <style>html.no-js .bot-hidden { display: none !important; }</style>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  
+  <script type="text/javascript">
+  (function() {
+    window._uxa = window._uxa || [];
+
+    // Landing param from the ChatGPT App widget's product links
+    // (mcp/widget/search-sneakers.html). Must be pushed HERE, before the tag
+    // script below is even requested — not in footer.ejs. The tag script
+    // loads async and can fire its own automatic pageview before a <script>
+    // at the bottom of <body> ever runs, which drops any setCustomVariable
+    // pushed that late from the pageview hit entirely (confirmed live via
+    // CSQ's Tagging Assistant: push fired correctly client-side, just lost
+    // the race against the tag's first pageview).
+    var promptCount = new URLSearchParams(window.location.search).get('prompt_count');
+    if (promptCount) {
+      window._uxa.push(['setCustomVariable', 13, 'promptCount', promptCount, 'visit']);
+      console.log('CS dynamic variable set from URL: promptCount = ' + promptCount);
+    }
+
+    var mt = document.createElement("script");
+    mt.type = "text/javascript";
+    mt.async = true;
+    mt.src = "//t.contentsquare.net/uxa/47fe0308b584a.js";
+    document.getElementsByTagName("head")[0].appendChild(mt);
+  })();
+  </script>
+  
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="top-bar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <span><i class="bi bi-telephone me-1"></i>1 800 345 6789</span>
+    <span class="top-promo d-none-mobile"><i class="bi bi-truck me-1"></i>FREE SHIPPING ON ORDERS OVER $99</span>
+    <div class="d-flex gap-3">
+      
+        <a href="#"><i class="bi bi-person me-1"></i>Sign In</a>
+        <a href="#">Register</a>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Main nav -->
+<header class="main-nav">
+  <div class="container d-flex align-items-center gap-4">
+    <!-- Logo -->
+    <a href="/" class="navbar-brand me-3 flex-shrink-0" id="main-logo">
+      C<span>Store</span>
+    </a>
+
+    <!-- Search -->
+    <form class="search-bar d-flex flex-grow-1" action="/shop" method="GET" id="search-form">
+      <input class="form-control" type="search" name="q" id="search-input"
+             placeholder="Search products, brands and categories..."
+             value="">
+      <button class="btn-search" type="submit" id="search-submit"><i class="bi bi-search"></i></button>
+    </form>
+
+    <!-- Icons -->
+    <div class="nav-icons d-flex align-items-center ms-3">
+      <!-- Wishlist -->
+      <a href="#" title="Wishlist" id="nav-wishlist-link">
+        <i class="bi bi-heart"></i>
+        <span>Wishlist</span>
+      </a>
+      <!-- Cart -->
+      <a href="/cart" title="Cart" class="ms-1 position-relative" id="nav-cart-link">
+        <i class="bi bi-cart2"></i>
+        <span class="cart-total-text">
+          $79.95
+        </span>
+        
+          <span class="badge-pill" id="cart-count">1</span>
+        
+      </a>
+      
+      <!-- AI Agent (scripted demo chat) — visible by default; agent-widget.js reads
+           data-default-scenario for which scenario to run absent ?aiScenario= -->
+      <a href="#" title="AI Assistant" class="ms-1" id="ai-agent-icon-link" style="display:none;"
+         data-default-scenario="cart-add-issue-help">
+        <i class="bi bi-robot"></i>
+        <span>Assistant</span>
+      </a>
+      
+    </div>
+  </div>
+</header>
+
+<!-- Category nav -->
+<div class="cat-nav">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg p-0">
+      <button class="navbar-toggler border-0 py-2 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#catNavMenu">
+        <i class="bi bi-list fs-4"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="catNavMenu">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="nav-all-products">All Products</a>
+          </li>
+          
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="nav-cat-sports">
+                  Sports
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="nav-cat-sports-all">All Sports</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-baseball">Baseball</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-basketball">Basketball</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-golf">Golf</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-soccer">Soccer</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-tennis">Tennis</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-track-and-field">Track &amp; Field</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-training">Training</a></li>
+                  
+                </ul>
+              </li>
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="nav-cat-running">
+                  Running
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="nav-cat-running-all">All Running</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-running-shoes">Running</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-trail-running">Trail Running</a></li>
+                  
+                </ul>
+              </li>
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="nav-cat-lifestyle">
+                  Lifestyle
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="nav-cat-lifestyle-all">All Lifestyle</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-lifestyle-shoes">Lifestyle</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-walking">Walking</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-yoga">Yoga</a></li>
+                  
+                </ul>
+              </li>
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="nav-cat-classics">
+                  Classics
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="nav-cat-classics-all">All Classics</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-classics-shoes">Classics</a></li>
+                  
+                </ul>
+              </li>
+            
+          
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: var(--red) !important;" id="nav-sale-link">Sale</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<div class="container py-4">
+  <h2 class="fw-bold mb-4"><i class="bi bi-cart3 me-2"></i>Shopping Cart</h2>
+  
+  
+    
+      <div class="flash-success"><i class="bi bi-check-circle me-2"></i>Item added to cart!</div>
+    
+  
+  
+  
+
+
+
+  
+    <div class="card border-0 shadow-sm mb-3" id="cart-coupon-form">
+      <div class="card-body p-3">
+        <h6 class="fw-bold mb-2"><i class="bi bi-tag me-2"></i>Have a promo code?</h6>
+        <div class="d-flex gap-2">
+          <input type="text" class="form-control" id="couponCode" placeholder="Enter coupon code" style="max-width:260px;">
+          <button class="btn btn-outline-primary" id="coupon-apply-btn" onclick="applyCoupon()">Apply</button>
+        </div>
+        <div id="couponMsg" class="mt-2 small"></div>
+      </div>
+    </div>
+  
+
+  
+    <div class="row g-4">
+      <!-- Cart Items -->
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead class="bg-light">
+                  <tr>
+                    <th class="py-3 ps-3">Product</th>
+                    <th class="py-3 text-center">Price</th>
+                    <th class="py-3 text-center">Qty</th>
+                    <th class="py-3 text-center">Subtotal</th>
+                    <th class="py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    <tr class="align-middle" id="cart-item-0">
+                      <td class="ps-3">
+                        <div class="d-flex align-items-center gap-3">
+                          <img src="/images/products/converse-x-keith-haring-chuck-70-egret-171858c-1.jpg"
+                               alt="Converse x Keith Haring Chuck 70"
+                               class="rounded"
+                               style="width:65px; height:60px; object-fit:cover;">
+                          <div>
+                            <a href="/product/converse-x-keith-haring-chuck-70" class="fw-semibold text-dark text-decoration-none" id="cart-item-name-0">
+                              Converse x Keith Haring Chuck 70
+                            </a>
+                            
+                          </div>
+                        </div>
+                      </td>
+                      <td class="text-center">$79.95</td>
+                      <td class="text-center">
+                        <form action="/cart/update" method="POST" class="d-flex align-items-center justify-content-center gap-1">
+                          <input type="hidden" name="item_id" value="0">
+                          <button type="submit" name="quantity" value="0" class="btn btn-light btn-sm border" id="cart-qty-decrease-0">
+                            <i class="bi bi-dash"></i>
+                          </button>
+                          <span class="px-2 fw-semibold" id="cart-qty-display-0">1</span>
+                          <button type="submit" name="quantity" value="2" class="btn btn-light btn-sm border" id="cart-qty-increase-0">
+                            <i class="bi bi-plus"></i>
+                          </button>
+                        </form>
+                      </td>
+                      <td class="text-center fw-bold text-primary">
+                        $79.95
+                      </td>
+                      <td>
+                        <form action="/cart/remove" method="POST">
+                          <input type="hidden" name="item_id" value="0">
+                          <button type="submit" class="btn btn-link text-danger p-0" id="cart-remove-0" title="Remove">
+                            <i class="bi bi-trash3 fs-5"></i>
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="mt-3">
+          <a href="#" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+          </a>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h5 class="fw-bold mb-3">Order Summary</h5>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Subtotal</span>
+              <span>$79.95</span>
+            </div>
+            
+            <div class="d-flex justify-content-between mb-2">
+              <span>Shipping</span>
+              <span class="">
+                $5.99
+              </span>
+            </div>
+            
+              <small class="text-muted d-block mb-2">
+                Add $19.05 more for free shipping
+              </small>
+            
+            <div class="d-flex justify-content-between mb-2">
+              <span>Tax (8%)</span>
+              <span>$6.40</span>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between fw-bold fs-5">
+              <span>Total</span>
+              <span class="text-primary">$92.34</span>
+            </div>
+            <a href="/checkout" class="btn btn-primary btn-lg w-100 mt-3" id="proceed-to-checkout">
+              <i class="bi bi-lock me-2"></i>Proceed to Checkout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+</div>
+
+<script>
+function applyCoupon() {
+  const code = document.getElementById('couponCode').value.trim();
+  const msgEl = document.getElementById('couponMsg');
+  if (!code) { msgEl.innerHTML = '<span class="text-danger">Please enter a coupon code</span>'; return; }
+
+  fetch('/coupon/apply', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code, subtotal: 79.95 })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      msgEl.innerHTML = '<span class="text-success"><i class="bi bi-check-circle me-1"></i>' + data.message + '</span>';
+      setTimeout(() => { window.location.href = '/cart?action=coupon_applied'; }, 1000);
+    } else {
+      msgEl.innerHTML = '<span class="text-danger"><i class="bi bi-x-circle me-1"></i>' + data.message + '</span>';
+    }
+  });
+}
+document.getElementById('couponCode')?.addEventListener('keypress', e => { if (e.key === 'Enter') { e.preventDefault(); applyCoupon(); } });
+</script>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Brand & contact -->
+      <div class="col-lg-3 col-md-6">
+        <h6>CStore</h6>
+        <ul class="footer-contact">
+          <li><i class="bi bi-geo-alt-fill"></i><span>1234 Market Street, San Francisco, CA 94103</span></li>
+          <li><i class="bi bi-telephone-fill"></i><span>1 800 345 6789</span></li>
+          <li><i class="bi bi-envelope-fill"></i><span>support@cstore.com</span></li>
+          <li><i class="bi bi-clock-fill"></i><span>Monday – Friday: 8am – 6pm</span></li>
+        </ul>
+        <div class="social-links">
+          <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="col-lg-1 col-6">
+        <h6>Quick Links</h6>
+        <ul>
+          <li><a href="#">Shop</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="#">Wishlist</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#">Sign In</a></li>
+          <li><a href="#">Register</a></li>
+        </ul>
+      </div>
+
+      <!-- Categories -->
+      <div class="col-lg-1 col-6">
+        <h6>Categories</h6>
+        <ul>
+          
+            
+              <li><a href="#">Sports</a></li>
+            
+              <li><a href="#">Running</a></li>
+            
+              <li><a href="#">Lifestyle</a></li>
+            
+              <li><a href="#">Classics</a></li>
+            
+              <li><a href="#">Baseball</a></li>
+            
+              <li><a href="#">Basketball</a></li>
+            
+          
+        </ul>
+      </div>
+
+      <!-- Payment -->
+      <div class="col-lg-1 col-md-6">
+        <h6>We Accept</h6>
+        <div class="payment-icons">
+          <span class="payment-icon">VISA</span>
+          <span class="payment-icon">MC</span>
+          <span class="payment-icon">AMEX</span>
+          <span class="payment-icon">PayPal</span>
+          <span class="payment-icon">COD</span>
+        </div>
+      </div>
+
+      <!-- Demo Tools -->
+      <!-- Demo Errors -->
+      </div>
+  </div>
+
+  <div class="container pb-3">
+    <div class="footer-disclaimer" style="border-top:1px solid #333;padding-top:20px;margin-top:10px;">
+      <p style="font-size:12.5px;color:#fff;margin:0;line-height:1.6;">
+        <strong style="color:#fff;">Disclaimer:</strong> This is a demonstration website created for demo and testing purposes only.
+        All products, prices, and transactions are fictitious. No real orders are processed, no payments are collected,
+        and no goods will be shipped. Do not enter any personally identifiable information (PII) — including your real name,
+        address, email, or payment details. Any data entered should be fictional test data only.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <span>&copy; 2026 CStore. All rights reserved.</span>
+      <div class="d-flex gap-3">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Returns</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

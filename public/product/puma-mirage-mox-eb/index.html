@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Puma MIrage Mox EB - CStore</title>
+  <script>document.documentElement.classList.remove('no-js');</script>
+  <style>html.no-js .bot-hidden { display: none !important; }</style>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  
+  <script type="text/javascript">
+  (function() {
+    window._uxa = window._uxa || [];
+
+    // Landing param from the ChatGPT App widget's product links
+    // (mcp/widget/search-sneakers.html). Must be pushed HERE, before the tag
+    // script below is even requested — not in footer.ejs. The tag script
+    // loads async and can fire its own automatic pageview before a <script>
+    // at the bottom of <body> ever runs, which drops any setCustomVariable
+    // pushed that late from the pageview hit entirely (confirmed live via
+    // CSQ's Tagging Assistant: push fired correctly client-side, just lost
+    // the race against the tag's first pageview).
+    var promptCount = new URLSearchParams(window.location.search).get('prompt_count');
+    if (promptCount) {
+      window._uxa.push(['setCustomVariable', 13, 'promptCount', promptCount, 'visit']);
+      console.log('CS dynamic variable set from URL: promptCount = ' + promptCount);
+    }
+
+    var mt = document.createElement("script");
+    mt.type = "text/javascript";
+    mt.async = true;
+    mt.src = "//t.contentsquare.net/uxa/47fe0308b584a.js";
+    document.getElementsByTagName("head")[0].appendChild(mt);
+  })();
+  </script>
+  
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="top-bar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <span><i class="bi bi-telephone me-1"></i>1 800 345 6789</span>
+    <span class="top-promo d-none-mobile"><i class="bi bi-truck me-1"></i>FREE SHIPPING ON ORDERS OVER $99</span>
+    <div class="d-flex gap-3">
+      
+        <a href="#"><i class="bi bi-person me-1"></i>Sign In</a>
+        <a href="#">Register</a>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Main nav -->
+<header class="main-nav">
+  <div class="container d-flex align-items-center gap-4">
+    <!-- Logo -->
+    <a href="/" class="navbar-brand me-3 flex-shrink-0" id="main-logo">
+      C<span>Store</span>
+    </a>
+
+    <!-- Search -->
+    <form class="search-bar d-flex flex-grow-1" action="/shop" method="GET" id="search-form">
+      <input class="form-control" type="search" name="q" id="search-input"
+             placeholder="Search products, brands and categories..."
+             value="">
+      <button class="btn-search" type="submit" id="search-submit"><i class="bi bi-search"></i></button>
+    </form>
+
+    <!-- Icons -->
+    <div class="nav-icons d-flex align-items-center ms-3">
+      <!-- Wishlist -->
+      <a href="#" title="Wishlist" id="nav-wishlist-link">
+        <i class="bi bi-heart"></i>
+        <span>Wishlist</span>
+      </a>
+      <!-- Cart -->
+      <a href="/cart" title="Cart" class="ms-1 position-relative" id="nav-cart-link">
+        <i class="bi bi-cart2"></i>
+        <span class="cart-total-text">
+          $0.00
+        </span>
+        
+          <span class="badge-pill d-none" id="cart-count">0</span>
+        
+      </a>
+      
+      <!-- AI Agent (scripted demo chat) — visible by default; agent-widget.js reads
+           data-default-scenario for which scenario to run absent ?aiScenario= -->
+      <a href="#" title="AI Assistant" class="ms-1" id="ai-agent-icon-link" style="display:none;"
+         data-default-scenario="cart-add-issue-help">
+        <i class="bi bi-robot"></i>
+        <span>Assistant</span>
+      </a>
+      
+    </div>
+  </div>
+</header>
+
+<!-- Category nav -->
+<div class="cat-nav">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg p-0">
+      <button class="navbar-toggler border-0 py-2 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#catNavMenu">
+        <i class="bi bi-list fs-4"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="catNavMenu">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="nav-all-products">All Products</a>
+          </li>
+          
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="nav-cat-sports">
+                  Sports
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="nav-cat-sports-all">All Sports</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-baseball">Baseball</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-basketball">Basketball</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-golf">Golf</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-soccer">Soccer</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-tennis">Tennis</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-track-and-field">Track &amp; Field</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-training">Training</a></li>
+                  
+                </ul>
+              </li>
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="nav-cat-running">
+                  Running
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="nav-cat-running-all">All Running</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-running-shoes">Running</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-trail-running">Trail Running</a></li>
+                  
+                </ul>
+              </li>
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="nav-cat-lifestyle">
+                  Lifestyle
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="nav-cat-lifestyle-all">All Lifestyle</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-lifestyle-shoes">Lifestyle</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-walking">Walking</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-yoga">Yoga</a></li>
+                  
+                </ul>
+              </li>
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="nav-cat-classics">
+                  Classics
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" id="nav-cat-classics-all">All Classics</a></li>
+                  
+                    <li><a class="dropdown-item" href="#" id="nav-cat-classics-shoes">Classics</a></li>
+                  
+                </ul>
+              </li>
+            
+          
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: var(--red) !important;" id="nav-sale-link">Sale</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<div class="container py-4">
+  
+  
+  
+  
+
+
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="#">Shop</a></li>
+      
+        <li class="breadcrumb-item"><a href="#">Trail Running</a></li>
+      
+      <li class="breadcrumb-item active">Puma MIrage Mox EB</li>
+    </ol>
+  </nav>
+
+  <div class="row g-5">
+    <!-- Images -->
+    <div class="col-lg-6">
+      <div class="product-gallery">
+        <div class="main-image mb-3">
+          <img id="mainImage"
+               src="/images/products/puma-mirage-mox-eb-desert-sage-380515-01-1.jpg"
+               alt="Puma MIrage Mox EB"
+               class="img-fluid rounded-3 shadow w-100"
+               style="max-height:500px; object-fit:cover;">
+        </div>
+        
+          <div class="d-flex gap-2 flex-wrap" id="pd-thumbnails">
+            
+              <img src="/images/products/puma-mirage-mox-eb-desert-sage-380515-01-1.jpg"
+                   alt="Puma MIrage Mox EB"
+                   id="pd-thumb-0"
+                   class="thumbnail-img rounded border border-primary"
+                   onclick="document.getElementById('mainImage').src='/images/products/puma-mirage-mox-eb-desert-sage-380515-01-1.jpg'; document.querySelectorAll('.thumbnail-img').forEach(t=>t.classList.remove('border-primary')); this.classList.add('border-primary')"
+                   style="width:80px; height:70px; object-fit:cover; cursor:pointer;">
+            
+              <img src="/images/products/puma-mirage-mox-eb-desert-sage-380515-01-2.jpg"
+                   alt="Puma MIrage Mox EB"
+                   id="pd-thumb-1"
+                   class="thumbnail-img rounded border "
+                   onclick="document.getElementById('mainImage').src='/images/products/puma-mirage-mox-eb-desert-sage-380515-01-2.jpg'; document.querySelectorAll('.thumbnail-img').forEach(t=>t.classList.remove('border-primary')); this.classList.add('border-primary')"
+                   style="width:80px; height:70px; object-fit:cover; cursor:pointer;">
+            
+              <img src="/images/products/puma-mirage-mox-eb-desert-sage-380515-01-3.jpg"
+                   alt="Puma MIrage Mox EB"
+                   id="pd-thumb-2"
+                   class="thumbnail-img rounded border "
+                   onclick="document.getElementById('mainImage').src='/images/products/puma-mirage-mox-eb-desert-sage-380515-01-3.jpg'; document.querySelectorAll('.thumbnail-img').forEach(t=>t.classList.remove('border-primary')); this.classList.add('border-primary')"
+                   style="width:80px; height:70px; object-fit:cover; cursor:pointer;">
+            
+              <img src="/images/products/puma-mirage-mox-eb-desert-sage-380515-01-4.jpg"
+                   alt="Puma MIrage Mox EB"
+                   id="pd-thumb-3"
+                   class="thumbnail-img rounded border "
+                   onclick="document.getElementById('mainImage').src='/images/products/puma-mirage-mox-eb-desert-sage-380515-01-4.jpg'; document.querySelectorAll('.thumbnail-img').forEach(t=>t.classList.remove('border-primary')); this.classList.add('border-primary')"
+                   style="width:80px; height:70px; object-fit:cover; cursor:pointer;">
+            
+              <img src="/images/products/puma-mirage-mox-eb-desert-sage-380515-01-5.jpg"
+                   alt="Puma MIrage Mox EB"
+                   id="pd-thumb-4"
+                   class="thumbnail-img rounded border "
+                   onclick="document.getElementById('mainImage').src='/images/products/puma-mirage-mox-eb-desert-sage-380515-01-5.jpg'; document.querySelectorAll('.thumbnail-img').forEach(t=>t.classList.remove('border-primary')); this.classList.add('border-primary')"
+                   style="width:80px; height:70px; object-fit:cover; cursor:pointer;">
+            
+          </div>
+        
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="col-lg-6">
+      
+        <span class="badge bg-danger mb-2">ON SALE</span>
+      
+      
+
+      <h1 class="h2 fw-bold mb-2">Puma MIrage Mox EB</h1>
+
+      <!-- Rating -->
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <div class="text-warning">
+          
+          
+            <i class="bi bi-star"></i>
+          
+            <i class="bi bi-star"></i>
+          
+            <i class="bi bi-star"></i>
+          
+            <i class="bi bi-star"></i>
+          
+            <i class="bi bi-star"></i>
+          
+        </div>
+        <span class="text-muted small">(0 reviews)</span>
+        <a href="#reviews" class="text-decoration-none small">Write a review</a>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-3 d-flex align-items-baseline gap-3">
+        <span class="pd-price" id="product-price">$69.90</span>
+        
+          <span class="pd-compare">$89.90</span>
+          <span class="pd-save">Save 22%</span>
+        
+      </div>
+
+      <!-- Short description -->
+      
+        <p class="text-muted mb-4">ICONIC COMFORT TAKES A FUTURISTIC LEAP FORWARDS.</p>
+      
+
+      <!-- Variants -->
+      
+
+      <!-- Stock -->
+      <div class="mb-3">
+        
+          <span class="text-success" id="pd-stock-status"><i class="bi bi-check-circle-fill me-1"></i>In Stock</span>
+        
+      </div>
+
+      <!-- Back in stock notify -->
+      
+
+      <!-- Add to Cart Form -->
+      <form action="/cart/add" method="POST" class="mb-3" id="add-to-cart-form">
+        <input type="hidden" name="product_id" value="562">
+        <input type="hidden" name="sku" value="280147">
+        <input type="hidden" name="variant_id" id="selected-variant" value="">
+        <div class="d-flex gap-3 align-items-center mb-3">
+          <div class="qty-group">
+            <button type="button" class="qty-btn qty-btn-action" id="pd-qty-decrease" data-action="decrease">−</button>
+            <input type="number" name="quantity" class="qty-input" id="pd-qty-input" value="1" min="1" max="100">
+            <button type="button" class="qty-btn qty-btn-action" id="pd-qty-increase" data-action="increase">+</button>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn-atc flex-grow-1" id="pd-add-to-cart" >
+            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+          </button>
+          
+            <a href="#" class="btn-wishlist" id="pd-wishlist-login" title="Sign in to add to Wishlist">
+              <i class="bi bi-heart"></i>
+            </a>
+          
+        </div>
+      </form>
+      
+
+      <!-- Meta info -->
+      <div class="border-top pt-3 mt-2 text-muted small">
+        <div><strong>SKU:</strong> 280147</div>
+        <div><strong>Category:</strong> <a href="#" class="text-muted">Trail Running</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Description & Reviews Tabs -->
+  <div class="mt-5" id="reviews">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="tab-description" data-bs-toggle="tab" href="#description">Description</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-reviews" data-bs-toggle="tab" href="#reviews-tab">
+          Reviews (0)
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content border border-top-0 p-4 rounded-bottom">
+      <!-- Description tab -->
+      <div class="tab-pane fade show active" id="description">
+        
+          <p>Ex eius quo recusandae quia voluptatem eius tempore. Provident dolores ut enim explicabo magnam magnam dolor. Sit delectus qui sed et dolorem ex dolorem.\n\nQui corrupti et nam quaerat doloremque et. Repellendus culpa minus debitis rerum. Velit ut odit sint sequi dolorum et doloribus. Ut ad ea harum quas adipisci.\n\nNihil id assumenda aut harum quasi id. Iusto animi aspernatur voluptas exercitationem et consequatur ipsum. Et enim dolorum corrupti in est. Reiciendis ullam corporis perspiciatis libero fuga. Repudiandae totam vel ut quia porro cumque.\n\nAut similique non qui est. Et fuga doloremque harum consequatur illo facere. Molestiae voluptatem repudiandae iure inventore quidem nesciunt sint. Labore magnam magnam omnis.\n\nQuo corporis voluptatem et magnam. Quia ex laboriosam qui quasi praesentium libero est. Excepturi odit occaecati temporibus laborum rerum illum. Vel et mollitia dolor aliquam dolorem eaque.</p>
+        
+        
+          <h6 class="fw-bold mt-4">Specifications</h6>
+          <table class="table table-sm table-striped w-auto">
+            <tbody>
+              
+                <tr>
+                  <th class="pe-4">Color</th>
+                  <td></td>
+                </tr>
+              
+                <tr>
+                  <th class="pe-4">Brand</th>
+                  <td></td>
+                </tr>
+              
+                <tr>
+                  <th class="pe-4">Gender</th>
+                  <td></td>
+                </tr>
+              
+                <tr>
+                  <th class="pe-4">Activity</th>
+                  <td></td>
+                </tr>
+              
+                <tr>
+                  <th class="pe-4">Size</th>
+                  <td></td>
+                </tr>
+              
+                <tr>
+                  <th class="pe-4">Width</th>
+                  <td></td>
+                </tr>
+              
+                <tr>
+                  <th class="pe-4">Surface</th>
+                  <td></td>
+                </tr>
+              
+                <tr>
+                  <th class="pe-4">Material</th>
+                  <td></td>
+                </tr>
+              
+                <tr>
+                  <th class="pe-4">Features</th>
+                  <td></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+      </div>
+
+      <!-- Reviews tab -->
+      <div class="tab-pane fade" id="reviews-tab">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="text-center">
+              <div class="display-4 fw-bold text-primary">0.0</div>
+              <div class="text-warning fs-4">
+                
+                
+                  <i class="bi bi-star"></i>
+                
+                  <i class="bi bi-star"></i>
+                
+                  <i class="bi bi-star"></i>
+                
+                  <i class="bi bi-star"></i>
+                
+                  <i class="bi bi-star"></i>
+                
+              </div>
+              <div class="text-muted">0 reviews</div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            
+              <p class="text-muted">No reviews yet. Be the first to review this product!</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products -->
+  
+    <section class="mt-5">
+      <h4 class="fw-bold mb-4">You Might Also Like</h4>
+      <div class="row g-4">
+        
+          <div class="col-6 col-md-3">
+            <div class="product-card h-100" id="product-card-558">
+  <div class="product-card-img-wrapper">
+    <a href="/product/adidas-originals-zx-500-rm" id="pc-img-link-558" class="">
+      <img src="/images/products/adidas-originals-zx-500-rm-core-black-bd7924-1.jpg"
+           class="product-card-img"
+           alt="Adidas Originals ZX 500 RM"
+           loading="lazy">
+    </a>
+    
+      <span class="pc-badge">Sale!</span>
+    
+    
+    <!-- Action buttons -->
+    <div class="product-card-actions">
+      <form action="/cart/add" method="POST" style="display:contents">
+        <input type="hidden" name="product_id" value="558">
+        <input type="hidden" name="sku" value="167004">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="btn-action btn-add-cart" id="pc-add-to-cart-558" title="Add to Cart">
+          <i class="bi bi-cart-plus me-1"></i>Add to Cart
+        </button>
+      </form>
+      
+        <a href="#" class="btn-action" id="pc-wishlist-login-558" title="Sign in to add to Wishlist">
+          <i class="bi bi-heart"></i>
+        </a>
+      
+      <a href="/product/adidas-originals-zx-500-rm" class="btn-action" id="pc-quick-view-558" title="Quick View">
+        <i class="bi bi-eye"></i>
+      </a>
+    </div>
+  </div>
+  <div class="product-card-body">
+    
+    <a href="/product/adidas-originals-zx-500-rm" class="pc-name d-block" id="pc-name-link-558">Adidas Originals ZX 500 RM</a>
+    <div class="pc-stars">
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-half"></i>
+      <span class="count">(12)</span>
+    </div>
+    <div class="pc-price">
+      <span class="current">$59.90</span>
+      
+        <span class="original">$79.90</span>
+      
+    </div>
+    
+  </div>
+</div>
+
+          </div>
+        
+          <div class="col-6 col-md-3">
+            <div class="product-card h-100" id="product-card-551">
+  <div class="product-card-img-wrapper">
+    <a href="/product/converse-x-keith-haring-chuck-70" id="pc-img-link-551" class="">
+      <img src="/images/products/converse-x-keith-haring-chuck-70-egret-171858c-1.jpg"
+           class="product-card-img"
+           alt="Converse x Keith Haring Chuck 70"
+           loading="lazy">
+    </a>
+    
+      <span class="pc-badge">Sale!</span>
+    
+    
+    <!-- Action buttons -->
+    <div class="product-card-actions">
+      <form action="/cart/add" method="POST" style="display:contents">
+        <input type="hidden" name="product_id" value="551">
+        <input type="hidden" name="sku" value="288723">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="btn-action btn-add-cart" id="pc-add-to-cart-551" title="Add to Cart">
+          <i class="bi bi-cart-plus me-1"></i>Add to Cart
+        </button>
+      </form>
+      
+        <a href="#" class="btn-action" id="pc-wishlist-login-551" title="Sign in to add to Wishlist">
+          <i class="bi bi-heart"></i>
+        </a>
+      
+      <a href="/product/converse-x-keith-haring-chuck-70" class="btn-action" id="pc-quick-view-551" title="Quick View">
+        <i class="bi bi-eye"></i>
+      </a>
+    </div>
+  </div>
+  <div class="product-card-body">
+    
+    <a href="/product/converse-x-keith-haring-chuck-70" class="pc-name d-block" id="pc-name-link-551">Converse x Keith Haring Chuck 70</a>
+    <div class="pc-stars">
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-half"></i>
+      <span class="count">(12)</span>
+    </div>
+    <div class="pc-price">
+      <span class="current">$79.95</span>
+      
+        <span class="original">$99.95</span>
+      
+    </div>
+    
+  </div>
+</div>
+
+          </div>
+        
+          <div class="col-6 col-md-3">
+            <div class="product-card h-100" id="product-card-554">
+  <div class="product-card-img-wrapper">
+    <a href="/product/vans-ua-evdnt-ultimatewaffle" id="pc-img-link-554" class="">
+      <img src="/images/products/vans-ua-evdnt-ultimatewaffle-black-vn0a5dy7b8c1-1.jpg"
+           class="product-card-img"
+           alt="Vans UA EVDNT UltimateWaffle"
+           loading="lazy">
+    </a>
+    
+      <span class="pc-badge">Sale!</span>
+    
+    
+    <!-- Action buttons -->
+    <div class="product-card-actions">
+      <form action="/cart/add" method="POST" style="display:contents">
+        <input type="hidden" name="product_id" value="554">
+        <input type="hidden" name="sku" value="275222">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="btn-action btn-add-cart" id="pc-add-to-cart-554" title="Add to Cart">
+          <i class="bi bi-cart-plus me-1"></i>Add to Cart
+        </button>
+      </form>
+      
+        <a href="#" class="btn-action" id="pc-wishlist-login-554" title="Sign in to add to Wishlist">
+          <i class="bi bi-heart"></i>
+        </a>
+      
+      <a href="/product/vans-ua-evdnt-ultimatewaffle" class="btn-action" id="pc-quick-view-554" title="Quick View">
+        <i class="bi bi-eye"></i>
+      </a>
+    </div>
+  </div>
+  <div class="product-card-body">
+    
+    <a href="/product/vans-ua-evdnt-ultimatewaffle" class="pc-name d-block" id="pc-name-link-554">Vans UA EVDNT UltimateWaffle</a>
+    <div class="pc-stars">
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-half"></i>
+      <span class="count">(12)</span>
+    </div>
+    <div class="pc-price">
+      <span class="current">$89.95</span>
+      
+        <span class="original">$114.95</span>
+      
+    </div>
+    
+  </div>
+</div>
+
+          </div>
+        
+      </div>
+    </section>
+  
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Brand & contact -->
+      <div class="col-lg-3 col-md-6">
+        <h6>CStore</h6>
+        <ul class="footer-contact">
+          <li><i class="bi bi-geo-alt-fill"></i><span>1234 Market Street, San Francisco, CA 94103</span></li>
+          <li><i class="bi bi-telephone-fill"></i><span>1 800 345 6789</span></li>
+          <li><i class="bi bi-envelope-fill"></i><span>support@cstore.com</span></li>
+          <li><i class="bi bi-clock-fill"></i><span>Monday – Friday: 8am – 6pm</span></li>
+        </ul>
+        <div class="social-links">
+          <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="col-lg-1 col-6">
+        <h6>Quick Links</h6>
+        <ul>
+          <li><a href="#">Shop</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="#">Wishlist</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#">Sign In</a></li>
+          <li><a href="#">Register</a></li>
+        </ul>
+      </div>
+
+      <!-- Categories -->
+      <div class="col-lg-1 col-6">
+        <h6>Categories</h6>
+        <ul>
+          
+            
+              <li><a href="#">Sports</a></li>
+            
+              <li><a href="#">Running</a></li>
+            
+              <li><a href="#">Lifestyle</a></li>
+            
+              <li><a href="#">Classics</a></li>
+            
+              <li><a href="#">Baseball</a></li>
+            
+              <li><a href="#">Basketball</a></li>
+            
+          
+        </ul>
+      </div>
+
+      <!-- Payment -->
+      <div class="col-lg-1 col-md-6">
+        <h6>We Accept</h6>
+        <div class="payment-icons">
+          <span class="payment-icon">VISA</span>
+          <span class="payment-icon">MC</span>
+          <span class="payment-icon">AMEX</span>
+          <span class="payment-icon">PayPal</span>
+          <span class="payment-icon">COD</span>
+        </div>
+      </div>
+
+      <!-- Demo Tools -->
+      <!-- Demo Errors -->
+      </div>
+  </div>
+
+  <div class="container pb-3">
+    <div class="footer-disclaimer" style="border-top:1px solid #333;padding-top:20px;margin-top:10px;">
+      <p style="font-size:12.5px;color:#fff;margin:0;line-height:1.6;">
+        <strong style="color:#fff;">Disclaimer:</strong> This is a demonstration website created for demo and testing purposes only.
+        All products, prices, and transactions are fictitious. No real orders are processed, no payments are collected,
+        and no goods will be shipped. Do not enter any personally identifiable information (PII) — including your real name,
+        address, email, or payment details. Any data entered should be fictional test data only.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <span>&copy; 2026 CStore. All rights reserved.</span>
+      <div class="d-flex gap-3">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Returns</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
