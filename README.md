@@ -6,12 +6,14 @@ bot-detection demos. There is no backend: nothing is added to a cart or submitte
 
 ## Flow
 
-`/` → `/product/<slug>` (4 products) → `/cart` → `/checkout` → `/checkout/confirmation/ORD-1794240459025`
+`/` → `/shop` (4 products) → `/product/<slug>` → `/cart` → `/checkout` → `/checkout/confirmation/ORD-1794240459025`
 
 - "Add to cart" on any page navigates to `/cart`. The cart always holds
   *Converse x Keith Haring Chuck 70* (the same product appears on checkout and confirmation).
 - "Place order" navigates to the confirmation page. Form values are placeholders.
-- All other links (shop, categories, login, wishlist, …) are inert (`#`).
+- `/shop` is a single static listing of the 4 products. All category / sale / "Shop Now"
+  links go to it; the filter sidebar and sort are cosmetic. Other links (login,
+  wishlist, …) are inert (`#`).
 - The ContentSquare tag `47fe0308b584a` is hardcoded in every page's `<head>`. The
   confirmation page fires its (frozen) e-commerce transaction on load.
 
