@@ -2,3 +2,5 @@ node_modules/
 .wrangler/
 .dev.vars
 .DS_Store
+scripts/logs/
+__pycache__/
