@@ -18,8 +18,25 @@ Usage:
   python3 scripts/ai_crawler_bot.py --agent GPTBot --runs 3
   python3 scripts/ai_crawler_bot.py --list
 """
-import argparse, random, time, urllib.robotparser
+import argparse, logging, logging.handlers, os, random, sys, time, urllib.robotparser
 import requests
+
+LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
+log = logging.getLogger("crawler")
+
+
+def setup_logging(path):
+    """Timestamped log, rotated daily at midnight, 7 days kept."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    fmt = logging.Formatter("%(asctime)s %(message)s", "%Y-%m-%d %H:%M:%S")
+    h = logging.handlers.TimedRotatingFileHandler(path, when="midnight", backupCount=7)
+    h.setFormatter(fmt)
+    log.addHandler(h)
+    log.setLevel(logging.INFO)
+    if sys.stdout.isatty():  # also echo when run by hand
+        sh = logging.StreamHandler(sys.stdout)
+        sh.setFormatter(fmt)
+        log.addHandler(sh)
 
 BASE = "https://forcemultiplying.com"
 PRODUCTS = [
@@ -104,14 +121,14 @@ def one_run(agent, sess, gap):
         rp.parse([])
     else:
         r = sess.get(BASE + "/robots.txt", timeout=20)
-        print(f"[{token}] GET /robots.txt -> {r.status_code}")
+        log.info(f"[{token}] GET /robots.txt -> {r.status_code}")
         rp.parse(r.text.splitlines() if r.ok else [])
     paths = plan_paths(category, rp, token)
     if not paths:
-        print(f"[{token}] robots.txt disallows everything; nothing fetched")
+        log.info(f"[{token}] robots.txt disallows everything; nothing fetched")
     for p in paths:
         r = sess.get(BASE + p, timeout=20)
-        print(f"[{token}] ({operator}/{category}) GET {p} -> {r.status_code}")
+        log.info(f"[{token}] ({operator}/{category}) GET {p} -> {r.status_code}")
         time.sleep(random.uniform(0.3, 1.5) if gap else 0)
     return token, len(paths)
 
@@ -121,12 +138,14 @@ def main():
     ap.add_argument("--agent", help="crawler token to use (default: weighted random)")
     ap.add_argument("--runs", type=int, default=1)
     ap.add_argument("--gap", type=float, default=3, help="avg seconds between runs")
+    ap.add_argument("--log-file", default=os.path.join(LOG_DIR, "ai_crawler_bot.log"))
     ap.add_argument("--list", action="store_true", help="list known agents and exit")
     a = ap.parse_args()
     if a.list:
         for t, o, c, w, ua in AGENTS:
             print(f"{t:24} {o:13} {c:11} w={w:<3} {ua}")
         return
+    setup_logging(a.log_file)
     pool = AGENTS
     if a.agent:
         pool = [x for x in AGENTS if x[0].lower() == a.agent.lower()]
@@ -141,10 +160,10 @@ def main():
             token, n = one_run(agent, sess, a.gap)
             tally[token] = tally.get(token, 0) + n
         except requests.RequestException as e:
-            print(f"[{agent[0]}] FAILED: {type(e).__name__}")
+            log.error(f"[{agent[0]}] FAILED: {type(e).__name__}")
         if i < a.runs - 1:
             time.sleep(random.uniform(0.5 * a.gap, 1.5 * a.gap))
-    print("summary (page requests by agent):", tally)
+    log.info(f"summary runs={a.runs} page_requests={sum(tally.values())} by_agent={tally}")
 
 
 if __name__ == "__main__":
