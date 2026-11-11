@@ -67,21 +67,33 @@ AGENTS = [
 ]
 
 
+# Relative popularity: home and listing are crawled most, products less,
+# cart/checkout rarely (user-triggered agents only).
+PAGE_WEIGHT = {"/": 10, "/shop": 6, "/cart": 1, "/checkout": 1}
+DEFAULT_WEIGHT = 3  # product pages
+
+
+def weighted_sample(pool, n):
+    """n distinct paths, drawn without replacement by PAGE_WEIGHT."""
+    pool, out = list(pool), []
+    for _ in range(min(n, len(pool))):
+        p = random.choices(pool, weights=[PAGE_WEIGHT.get(x, DEFAULT_WEIGHT) for x in pool])[0]
+        pool.remove(p)
+        out.append(p)
+    return out
+
+
 def plan_paths(category, rp, token):
     """Pick the URLs this identity would request."""
     if category == USER:  # ignores robots.txt, targeted fetches
-        pool = BROWSABLE + RESTRICTED[:2]
-        return random.sample(pool, random.randint(1, 2))
+        return weighted_sample(BROWSABLE + RESTRICTED[:2], random.randint(1, 2))
     allowed = [p for p in BROWSABLE if rp.can_fetch(token, BASE + p)]
     if not allowed:
         return []
     n = {TRAIN: random.randint(4, len(allowed)),
          SEARCH: random.randint(2, 4),
          SUPPORT: random.randint(1, 3)}[category]
-    paths = random.sample(allowed, min(n, len(allowed)))
-    if "/" in allowed and random.random() < 0.6 and "/" not in paths:
-        paths.insert(0, "/")  # crawls usually start at the root
-    return paths
+    return weighted_sample(allowed, n)
 
 
 def one_run(agent, sess, gap):
